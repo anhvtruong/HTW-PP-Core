@@ -1,0 +1,7 @@
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\bin\Debug\netcoreapp3.0\Designer.deps.json
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\bin\Debug\netcoreapp3.0\Designer.dll
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\bin\Debug\netcoreapp3.0\Designer.pdb
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\obj\Debug\netcoreapp3.0\Designer.AssemblyInfoInputs.cache
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\obj\Debug\netcoreapp3.0\Designer.AssemblyInfo.cs
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\obj\Debug\netcoreapp3.0\Designer.dll
+C:\Users\tvanh\source\repos\IlCodeApp\Designer\obj\Debug\netcoreapp3.0\Designer.pdb

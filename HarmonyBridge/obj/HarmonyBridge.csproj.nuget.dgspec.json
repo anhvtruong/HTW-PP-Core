@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj",
+        "projectName": "Designer",
+        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj",
+        "packagesPath": "C:\\Users\\tvanh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tvanh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj",
+        "projectName": "HarmonyBridge",
+        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj",
+        "packagesPath": "C:\\Users\\tvanh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\tvanh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.0": {
+            "projectReferences": {
+              "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj": {
+                "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "System.CodeDom": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "System.Reflection.Emit": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "AfterCode": "true",
+    "BeforeCode": "duration >= 0",
+    "ConstraintName": "DurationNotNegativ",
+    "ContextName": "Operation",
+    "FunctionName": "SetTask"
+}
