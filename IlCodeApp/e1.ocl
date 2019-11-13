@@ -1,0 +1,4 @@
+package Rules 
+	context Operation::SetTask() pre DurationNotNegativ: duration >= 0
+	context Operation::SetTask() pre OverlappingProdTime: startTime >= predecessor.EndTime
+endpackage

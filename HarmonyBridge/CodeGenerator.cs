@@ -9,6 +9,7 @@ using Designer;
 using HarmonyLib;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using OCL;
 
 namespace HarmonyBridge
 {
@@ -183,7 +184,8 @@ namespace HarmonyBridge
 
         private static System.Type ContextNameToType(Assembly assembly, string ctxName)
         {
-            return assembly.GetType(ctxName, true);
+            //return assembly.GetType(ctxName, true);
+            return assembly.GetType(assembly.FullName.Split(',')[0] + "." + ctxName, true);
         }
 
         public void InvokeApplyMethod()
@@ -242,7 +244,7 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             return new Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
         }
 
-        public static void BeforeCall(object __instance" + funcArgsAddStr + @")
+        public static void BeforeCall(" + _options.Context + " __instance" + funcArgsAddStr + @")
         {
             var self = __instance;
 
@@ -260,7 +262,7 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             }
             oset.Add(self, newObject);
         }
-        public static void AfterCall(object __instance" + funcArgsAddStr + @")
+        public static void AfterCall(" + _options.Context + " __instance" + funcArgsAddStr + @")
         {
             var self = __instance;
             object pre;

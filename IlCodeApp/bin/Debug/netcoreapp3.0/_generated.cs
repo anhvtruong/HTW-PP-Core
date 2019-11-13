@@ -1,7 +1,7 @@
 
-using Harmony;
 using System;
 using Designer;
+using HarmonyLib;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ public class OverlappingProdTime
     {
 private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTable<object, object>();
         public OverlappingProdTime() {}
-        public Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
+        public Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
         {
             if (ctx == null)
                 throw new Exception("[OverlappingProdTime] ctx is null!");
-            var harmony = HarmonyInstance.Create("OverlappingProdTime");
+            var harmony = new HarmonyLib.Harmony("OverlappingProdTime");
             var original = ctx.GetMethod("SetTask");
             if (original == null) 
                 throw new Exception("[OverlappingProdTime] original method == null.");
@@ -26,14 +26,14 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             // harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
             // if (!harmony.HasAnyPatches("OverlappingProdTime"))
             //     throw new Exception("[OverlappingProdTime] applying hook failed.");
-            return new Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
+            return new Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
         }
 
-        public static void BeforeCall(object __instance, System.Int32 id, System.Int32 startTime, System.Int32 duration, Designer.Operation predecessor, Designer.Machine machId, System.Collections.Generic.List<System.Tuple<Designer.Material,System.Int32>> requiredMaterials)
+        public static void BeforeCall(Designer.Operation __instance, System.Int32 id, System.Int32 startTime, System.Int32 duration, Designer.Operation predecessor, Designer.Machine machId, System.Collections.Generic.List<System.Tuple<Designer.Material,System.Int32>> requiredMaterials)
         {
             var self = __instance;
 
-            if (!(startTime >= predecessor.GetValue("EndTime")))
+            if (!(startTime >= predecessor.EndTime))
             {
                 SetPlanningError();
             }
@@ -47,7 +47,7 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             }
             oset.Add(self, newObject);
         }
-        public static void AfterCall(object __instance, System.Int32 id, System.Int32 startTime, System.Int32 duration, Designer.Operation predecessor, Designer.Machine machId, System.Collections.Generic.List<System.Tuple<Designer.Material,System.Int32>> requiredMaterials)
+        public static void AfterCall(Designer.Operation __instance, System.Int32 id, System.Int32 startTime, System.Int32 duration, Designer.Operation predecessor, Designer.Machine machId, System.Collections.Generic.List<System.Tuple<Designer.Material,System.Int32>> requiredMaterials)
         {
             var self = __instance;
             object pre;
