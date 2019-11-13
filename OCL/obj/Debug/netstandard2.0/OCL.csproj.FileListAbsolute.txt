@@ -1,0 +1,8 @@
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\bin\Debug\netstandard2.0\OCL.deps.json
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\bin\Debug\netstandard2.0\OCL.dll
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\bin\Debug\netstandard2.0\OCL.pdb
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\obj\Debug\netstandard2.0\OCL.csprojAssemblyReference.cache
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\obj\Debug\netstandard2.0\OCL.AssemblyInfoInputs.cache
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\obj\Debug\netstandard2.0\OCL.AssemblyInfo.cs
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\obj\Debug\netstandard2.0\OCL.dll
+C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\OCL\obj\Debug\netstandard2.0\OCL.pdb

@@ -1,7 +1,7 @@
 
-using Harmony;
 using System;
 using Designer;
+using HarmonyLib;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
@@ -9,31 +9,31 @@ using System.Runtime.CompilerServices;
 
 namespace HookClass_Designer
 {
-public class OverlappingProdTime
+public class DurationNotNegativ
     {
 private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTable<object, object>();
-        public OverlappingProdTime() {}
-        public Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
+        public DurationNotNegativ() {}
+        public Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
         {
             if (ctx == null)
-                throw new Exception("[OverlappingProdTime] ctx is null!");
-            var harmony = HarmonyInstance.Create("OverlappingProdTime");
+                throw new Exception("[DurationNotNegativ] ctx is null!");
+            var harmony = new HarmonyLib.Harmony("DurationNotNegativ");
             var original = ctx.GetMethod("SetTask");
             if (original == null) 
-                throw new Exception("[OverlappingProdTime] original method == null.");
-            var prefix = typeof(OverlappingProdTime).GetMethod("BeforeCall");
-            var postfix = typeof(OverlappingProdTime).GetMethod("AfterCall");
+                throw new Exception("[DurationNotNegativ] original method == null.");
+            var prefix = typeof(DurationNotNegativ).GetMethod("BeforeCall");
+            var postfix = typeof(DurationNotNegativ).GetMethod("AfterCall");
             // harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
-            // if (!harmony.HasAnyPatches("OverlappingProdTime"))
-            //     throw new Exception("[OverlappingProdTime] applying hook failed.");
-            return new Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
+            // if (!harmony.HasAnyPatches("DurationNotNegativ"))
+            //     throw new Exception("[DurationNotNegativ] applying hook failed.");
+            return new Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
         }
 
         public static void BeforeCall(object __instance, System.Int32 id, System.Int32 startTime, System.Int32 duration, Designer.Operation predecessor, Designer.Machine machId, System.Collections.Generic.List<System.Tuple<Designer.Material,System.Int32>> requiredMaterials)
         {
             var self = __instance;
 
-            if (!(startTime >= predecessor.GetValue("EndTime")))
+            if (!(duration >= 0))
             {
                 SetPlanningError();
             }
@@ -62,7 +62,7 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
         public static bool HasPlanningError { get; private set; }
         private static void SetPlanningError()
         {
-            Console.WriteLine("Planning Error OverlappingProdTime.");
+            Console.WriteLine("Planning Error DurationNotNegativ.");
             HasPlanningError = true;
         }
 
