@@ -22,13 +22,13 @@ namespace AspectTester
                 planner.Plan();
 
                 Console.ReadLine();
-                if (!DurationNotNegativ.Apply()) throw new Exception("Applying aspect failed");
-                if (!OverlappingProdTime.Apply()) throw new Exception("Applying aspect failed");
-                if (!StartTimeCollision.Apply()) throw new Exception("Applying aspect failed");
-                if (!EndTimeCollision.Apply()) throw new Exception("Applying aspect failed");
-                if (!CapacityCheck.Apply()) throw new Exception("Applying aspect failed");
-                if (!CheckMaterialQuantity.Apply()) throw new Exception("Applying aspect failed");
-                if (!CheckProductionTime.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!DurationNotNegativ.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!OverlappingProdTime.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!StartTimeCollision.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!EndTimeCollision.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!CapacityCheck.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!CheckMaterialQuantity.Apply()) throw new Exception("Applying aspect failed");
+            //     if (!CheckProductionTime.Apply()) throw new Exception("Applying aspect failed");
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nOutput with Harmony/Aspects");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Designer;
-using Harmony;
+using HarmonyLib;
 
 namespace HarmonyBridge
 {
@@ -31,7 +31,7 @@ namespace HarmonyBridge
         public static bool Apply()
         {
             /// Create a Harmony Instance that has an unique name
-            var harmony = HarmonyInstance.Create("DurationNotNegativ");
+            var harmony = new Harmony("DurationNotNegativ");
 
             //harmony.PatchAll(Assembly.GetExecutingAssembly());
 
@@ -46,7 +46,7 @@ namespace HarmonyBridge
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
 
             /// Check if methods are applied and return result
-            return harmony.HasAnyPatches("DurationNotNegativ");
+            return Harmony.HasAnyPatches("DurationNotNegativ");
         }
 
         public static void BeforeCall(int id, int duration)
@@ -57,6 +57,7 @@ namespace HarmonyBridge
             {
                 Console.WriteLine("PLANNING ERROR: Duration time from ID {0} is negativ.", id);
             }
+
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -68,9 +69,10 @@ namespace HarmonyBridge
         {
             // Even Private properties are accessable through reflection.
             PropertyInfo strProperty =
-            __instance.GetType().GetProperty("EndTime", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
+                __instance.GetType().GetProperty("EndTime",
+                    BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
             MethodInfo strGetter = strProperty.GetGetMethod(nonPublic: true);
-            int val = (int)strGetter.Invoke(__instance, null);
+            int val = (int) strGetter.Invoke(__instance, null);
         }
     }
 
@@ -78,15 +80,15 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("OverlappingProdTime");
+            var harmony = new Harmony("OverlappingProdTime");
             var original = typeof(Operation).GetMethod("SetTask");
             var prefix = typeof(OverlappingProdTime).GetMethod("BeforeCall");
             var postfix = typeof(OverlappingProdTime).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
 
-            return harmony.HasAnyPatches("OverlappingProdTime");
+            return Harmony.HasAnyPatches("OverlappingProdTime");
         }
-        
+
         public static void BeforeCall(int id, int startTime, Operation predecessor)
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -112,13 +114,13 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("StartTimeCollision");
+            var harmony = new Harmony("StartTimeCollision");
             var original = typeof(Machine).GetMethod("SetEntry");
             var prefix = typeof(StartTimeCollision).GetMethod("BeforeCall");
             var postfix = typeof(StartTimeCollision).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
 
-            return harmony.HasAnyPatches("StartTimeCollision");
+            return Harmony.HasAnyPatches("StartTimeCollision");
         }
 
         public static void BeforeCall(Machine __instance, Operation op)
@@ -128,7 +130,7 @@ namespace HarmonyBridge
             List<Operation> workload = Tools.GetValue(__instance, "Workload");
             int startTimeToAdd = Tools.GetValue(op, "StartTime");
 
-            
+
             foreach (var o in workload)
             {
                 int startTime = Tools.GetValue(o, "StartTime");
@@ -157,13 +159,13 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("EndTimeCollision");
+            var harmony = new Harmony("EndTimeCollision");
             var original = typeof(Machine).GetMethod("SetEntry");
             var prefix = typeof(EndTimeCollision).GetMethod("BeforeCall");
             var postfix = typeof(EndTimeCollision).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
 
-            return harmony.HasAnyPatches("EndTimeCollision");
+            return Harmony.HasAnyPatches("EndTimeCollision");
         }
 
         public static void BeforeCall(Machine __instance, Operation op)
@@ -200,13 +202,13 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("CapacityCheck");
+            var harmony = new Harmony("CapacityCheck");
             var original = typeof(Machine).GetMethod("SetEntry");
             var prefix = typeof(CapacityCheck).GetMethod("BeforeCall");
             var postfix = typeof(CapacityCheck).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
 
-            return harmony.HasAnyPatches("CapacityCheck");
+            return Harmony.HasAnyPatches("CapacityCheck");
         }
 
         public static void BeforeCall()
@@ -244,12 +246,12 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("CheckMaterialQuantity");
+            var harmony = new Harmony("CheckMaterialQuantity");
             var original = typeof(Material).GetMethod("AddReservation");
             var prefix = typeof(CheckMaterialQuantity).GetMethod("BeforeCall");
             var postfix = typeof(CheckMaterialQuantity).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
-            return harmony.HasAnyPatches("CheckMaterialQuantity");
+            return Harmony.HasAnyPatches("CheckMaterialQuantity");
         }
 
         public static void BeforeCall(CheckMaterialQuantity __instance)
@@ -266,7 +268,9 @@ namespace HarmonyBridge
 
             if (Reservations.Sum(op => Tools.GetValue(op, "Quantity")) > quant)
             {
-                Console.WriteLine("Planning Error: Not enough material {0} left for operation {1}.", Tools.GetValue(__instance, "Id"), Tools.GetValue(Tools.GetValue(Reservations[Reservations.Count - 1], "Operation"),"Id"));
+                Console.WriteLine("Planning Error: Not enough material {0} left for operation {1}.",
+                    Tools.GetValue(__instance, "Id"),
+                    Tools.GetValue(Tools.GetValue(Reservations[Reservations.Count - 1], "Operation"), "Id"));
             }
 
             Console.ForegroundColor = ConsoleColor.White;
@@ -277,12 +281,12 @@ namespace HarmonyBridge
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("CheckProductionTime");
+            var harmony = new Harmony("CheckProductionTime");
             var original = typeof(Planner).GetMethod("Plan");
             var prefix = typeof(CheckProductionTime).GetMethod("BeforeCall");
             var postfix = typeof(CheckProductionTime).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
-            return harmony.HasAnyPatches("CheckProductionTime");
+            return Harmony.HasAnyPatches("CheckProductionTime");
         }
 
         public static void BeforeCall(Planner __instance)
@@ -297,7 +301,7 @@ namespace HarmonyBridge
             Console.ForegroundColor = ConsoleColor.DarkRed;
             var prodTime = Tools.GetValue(__instance, "ProductionTime");
             List<Operation> list = Tools.GetValue(__instance, "Operations");
-            if (list.Sum(op=>Tools.GetValue(op, "Duration")) > prodTime)
+            if (list.Sum(op => Tools.GetValue(op, "Duration")) > prodTime)
             {
                 Console.WriteLine("Planning Error: Not enough time for planned operations.");
             }
@@ -307,18 +311,23 @@ namespace HarmonyBridge
     }
 
 
-    public class CLASS_NAME{ public void METHODE_NAME(){} }
+    public class CLASS_NAME
+    {
+        public void METHODE_NAME()
+        {
+        }
+    }
 
     public class CONSTRAINT_NAME
     {
         public static bool Apply()
         {
-            var harmony = HarmonyInstance.Create("CONSTRAINT_NAME");
+            var harmony = new Harmony("CONSTRAINT_NAME");
             var original = typeof(CLASS_NAME).GetMethod("METHODE_NAME");
             var prefix = typeof(CONSTRAINT_NAME).GetMethod("BeforeCall");
             var postfix = typeof(CONSTRAINT_NAME).GetMethod("AfterCall");
             harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
-            return harmony.HasAnyPatches("CONSTRAINT_NAME");
+            return HarmonyLib.Harmony.HasAnyPatches("CONSTRAINT_NAME");
         }
 
         public static void BeforeCall(CLASS_NAME __instance)
@@ -335,6 +344,4 @@ namespace HarmonyBridge
             Console.ForegroundColor = ConsoleColor.White;
         }
     }
-
 }
-

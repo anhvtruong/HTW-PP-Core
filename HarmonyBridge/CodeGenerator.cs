@@ -1,10 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.CodeDom.Compiler;
+using System.Linq;
 using Microsoft.CSharp;
-using Harmony;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Designer;
+using HarmonyLib;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace HarmonyBridge
 {
@@ -41,48 +45,87 @@ namespace HarmonyBridge
         public CodeGenerator(Options options)
         {
             _options = options;
+            // // Console.WriteLine(GenerateCodeString());
+            // var param = new CompilerParameters
+            // {
+            //     GenerateExecutable = false,
+            //     IncludeDebugInformation = true,
+            //     GenerateInMemory = false
+            // };
 
-            // Console.WriteLine(GenerateCodeString());
-            var param = new CompilerParameters
+            var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
+            var coreDir = Directory.GetParent(dd);
+            var refsNames = new[]
             {
-                GenerateExecutable = false,
-                IncludeDebugInformation = true,
-                GenerateInMemory = false
+                // "System.Xml.dll",
+                // "System.Data.dll",
+                // "System.Core.dll",
+                // "System.Xml.Linq.dll",
+                // "0Harmony.dll",
+                // "0Harmony.dll",
+                typeof(HarmonyLib.Harmony).Assembly.Location,
+                typeof(Designer.Operation).Assembly.Location,
+                typeof(object).Assembly.Location,
+                typeof(System.Linq.Enumerable).Assembly.Location,
+                typeof(System.Runtime.CompilerServices.DynamicAttribute).Assembly.Location,
+                typeof(Console).GetTypeInfo().Assembly.Location,
+                typeof(Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo).GetTypeInfo().Assembly.Location,
+                coreDir.FullName + Path.DirectorySeparatorChar + "mscorlib.dll",
+                coreDir.FullName + Path.DirectorySeparatorChar + "netstandard.dll",
+                coreDir.FullName + Path.DirectorySeparatorChar + "System.Runtime.dll",
+                coreDir.FullName + Path.DirectorySeparatorChar + "Microsoft.CSharp.dll"
+                // "Microsoft.CSharp.dll"
             };
+            var refs = refsNames.Select(x => MetadataReference.CreateFromFile(x));
 
-            param.ReferencedAssemblies.Add("System.dll");
-            param.ReferencedAssemblies.Add("System.Xml.dll");
-            param.ReferencedAssemblies.Add("System.Data.dll");
-            param.ReferencedAssemblies.Add("System.Core.dll");
-            param.ReferencedAssemblies.Add("System.Xml.Linq.dll");
-            param.ReferencedAssemblies.Add("0Harmony.dll");
-            param.ReferencedAssemblies.Add(typeof(HarmonyInstance).Assembly.Location);
-            param.ReferencedAssemblies.Add(typeof(Operation).Assembly.Location);
-            param.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
-            // param.ReferencedAssemblies.Add("Designer.dll"); // new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().EscapedCodeBase).LocalPath);
-            
-            var codeProvider = new CSharpCodeProvider();
+            // param.ReferencedAssemblies.Add("System.dll");
+            // param.ReferencedAssemblies.Add("System.Xml.dll");
+            // param.ReferencedAssemblies.Add("System.Data.dll");
+            // param.ReferencedAssemblies.Add("System.Core.dll");
+            // param.ReferencedAssemblies.Add("System.Xml.Linq.dll");
+            // param.ReferencedAssemblies.Add("0Harmony.dll");
+            // param.ReferencedAssemblies.Add(typeof(HarmonyInstance).Assembly.Location);
+            // param.ReferencedAssemblies.Add(typeof(Operation).Assembly.Location);
+            // param.ReferencedAssemblies.Add("Microsoft.CSharp.dll");
+            // // param.ReferencedAssemblies.Add("Designer.dll"); // new System.Uri(System.Reflection.Assembly.GetExecutingAssembly().EscapedCodeBase).LocalPath);
+
+            // var codeProvider = new CSharpCodeProvider();
             var code = GenerateCodeString();
-            var results = codeProvider.CompileAssemblyFromSource(param, code);
+            // var results = codeProvider.CompileAssemblyFromSource(param, code);
 
             System.IO.File.WriteAllText("_generated.cs", code);
 
-            if (!results.Errors.HasErrors)
+
+            var typeName = "HookClass_" + _options.Context.Namespace + "." +
+                           _options.ClassName;
+
+            SyntaxTree tree = SyntaxFactory.ParseSyntaxTree(code);
+
+            CSharpCompilation compilation = CSharpCompilation.Create(
+                typeName + ".dll",
+                options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary),
+                syntaxTrees: new[] {tree},
+                references: refs); //new[] {MetadataReference.CreateFromFile(typeof(object).Assembly.Location)});
+
+            using (MemoryStream stream = new MemoryStream())
             {
-                _assembly = results.CompiledAssembly;
-                _instance = _assembly.CreateInstance("HookClass_" + _options.Context.Namespace + "." +
-                                                     _options.ClassName);
-                if (_instance != null) _runtimeCode = _instance.GetType();
-                //_runtimeCode =
-                //    results.CompiledAssembly.GetType("HookClass_" + _options.Context.Namespace + "." +
-                //                                     _options.ClassName);
+                Microsoft.CodeAnalysis.Emit.EmitResult compileResult = compilation.Emit(stream);
+                if (!compileResult.Success)
+                {
+                    throw new Exception(compileResult.Diagnostics.Join(x => x.ToString()));
+                }
+
+                _assembly = Assembly.Load(stream.GetBuffer());
             }
-            else
-            {
-                foreach (var error in results.Errors)
-                    Console.WriteLine(error);
-                throw new Exception("CodeGen failed!");
-            }
+
+            // Type calculator = _assembly.GetType(typeName);
+            // MethodInfo evaluate = calculator.GetMethod("Evaluate");
+            // string answer = evaluate.Invoke(null, null).ToString();
+
+
+            _instance = _assembly.CreateInstance(typeName);
+            _runtimeCode = _instance.GetType();
+            // throw new Exception("CodeGen failed!");
         }
 
         private readonly dynamic _instance;
@@ -113,6 +156,7 @@ namespace HarmonyBridge
                         pt = pt.Substring(0, pos) + "<" + pt.Substring(pos + 1);
                     else break;
                 }
+
                 pos = -1;
                 while (true)
                 {
@@ -148,7 +192,7 @@ namespace HarmonyBridge
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += @object.Invoke;
             var method = _runtimeCode.GetMethod("Apply");
-            Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod> tup = method.Invoke(_instance, new object[]
+            Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> tup = method.Invoke(_instance, new object[]
             {
                 _options.Context
             });
@@ -168,9 +212,9 @@ namespace HarmonyBridge
         {
             var funcArgsAddStr = GetMethodArgumentsList();
             return @"
-using Harmony;
 using System;
 using Designer;
+using HarmonyLib;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
@@ -182,11 +226,11 @@ public class " + _options.ClassName + @"
     {
 private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTable<object, object>();
         public " + _options.ClassName + @"() {}
-        public Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
+        public Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
         {
             if (ctx == null)
                 throw new Exception(""[" + _options.ClassName + @"] ctx is null!"");
-            var harmony = HarmonyInstance.Create(""" + _options.ClassName + @""");
+            var harmony = new HarmonyLib.Harmony(""" + _options.ClassName + @""");
             var original = ctx.GetMethod(""" + _options.HookedFuncName + @""");
             if (original == null) 
                 throw new Exception(""[" + _options.ClassName + @"] original method == null."");
@@ -195,7 +239,7 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             // harmony.Patch(original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
             // if (!harmony.HasAnyPatches(""" + _options.ClassName + @"""))
             //     throw new Exception(""[" + _options.ClassName + @"] applying hook failed."");
-            return new Tuple<HarmonyInstance, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
+            return new Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod>(harmony, original, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
         }
 
         public static void BeforeCall(object __instance" + funcArgsAddStr + @")
