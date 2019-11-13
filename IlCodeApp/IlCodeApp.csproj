@@ -12,7 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="../Designer/Designer.csproj" />
     <ProjectReference Include="../HarmonyBridge/HarmonyBridge.csproj" />
-    <ProjectReference Include="..\..\HTW-PP\OCL-Editer\OCL-Editer.csproj" />
+    <ProjectReference Include="..\OCL-Editer\OCL-Editer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

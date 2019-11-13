@@ -731,8 +731,8 @@
     },
     "OCL-Editer/1.0.0": {
       "type": "project",
-      "path": "../../HTW-PP/OCL-Editer/OCL-Editer.csproj",
-      "msbuildProject": "../../HTW-PP/OCL-Editer/OCL-Editer.csproj"
+      "path": "../OCL-Editer/OCL-Editer.csproj",
+      "msbuildProject": "../OCL-Editer/OCL-Editer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -779,8 +779,8 @@
             "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj": {
               "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj"
             },
-            "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj": {
-              "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj"
+            "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj": {
+              "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj"
             }
           }
         }

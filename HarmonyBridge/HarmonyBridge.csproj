@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Designer/Designer.csproj" />
-    <ProjectReference Include="..\..\HTW-PP\OCL-Editer\OCL-Editer.csproj" />
+    <ProjectReference Include="..\OCL-Editer\OCL-Editer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

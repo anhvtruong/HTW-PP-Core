@@ -88,8 +88,8 @@
               "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj": {
                 "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj"
               },
-              "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj": {
-                "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj"
+              "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj": {
+                "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj"
               }
             }
           }
@@ -143,14 +143,14 @@
         }
       }
     },
-    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj": {
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj",
+        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj",
         "projectName": "OCL-Editer",
-        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\OCL-Editer.csproj",
+        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\OCL-Editer.csproj",
         "packagesPath": "C:\\Users\\tvanh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP\\OCL-Editer\\obj\\",
+        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\OCL-Editer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
