@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IlCodeApp", "IlCodeApp\IlCodeApp.csproj", "{8731AE93-B2EF-47FD-BD6F-9999221B6D39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IlCodeApp", "IlCodeApp/IlCodeApp.csproj", "{8731AE93-B2EF-47FD-BD6F-9999221B6D39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Designer", "Designer\Designer.csproj", "{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Designer", "Designer/Designer.csproj", "{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyBridge", "HarmonyBridge\HarmonyBridge.csproj", "{996B9366-F380-4AD9-96A5-5C6651986A8C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OCL", "OCL\OCL.csproj", "{906F375E-265C-4058-8D97-26A89C0E8E2C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarmonyBridge", "HarmonyBridge/HarmonyBridge.csproj", "{996B9366-F380-4AD9-96A5-5C6651986A8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{906F375E-265C-4058-8D97-26A89C0E8E2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{906F375E-265C-4058-8D97-26A89C0E8E2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{906F375E-265C-4058-8D97-26A89C0E8E2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{906F375E-265C-4058-8D97-26A89C0E8E2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

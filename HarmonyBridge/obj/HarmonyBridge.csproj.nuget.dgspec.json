@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\HarmonyBridge\\HarmonyBridge.csproj": {}
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj": {
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj",
+        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj",
         "projectName": "Designer",
-        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj",
+        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj",
         "packagesPath": "C:\\Users\\tvanh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\obj\\",
+        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -59,14 +59,14 @@
         }
       }
     },
-    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\HarmonyBridge\\HarmonyBridge.csproj": {
+    "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\HarmonyBridge\\HarmonyBridge.csproj",
+        "projectUniqueName": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj",
         "projectName": "HarmonyBridge",
-        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\HarmonyBridge\\HarmonyBridge.csproj",
+        "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\HarmonyBridge.csproj",
         "packagesPath": "C:\\Users\\tvanh\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\HarmonyBridge\\obj\\",
+        "outputPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\HarmonyBridge\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -85,8 +85,8 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj": {
-                "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\HTW-PP-Core\\Designer\\Designer.csproj"
+              "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj": {
+                "projectPath": "C:\\Users\\tvanh\\OneDrive\\Documents\\Studium\\Forschung\\projects\\IlCodeApp\\Designer\\Designer.csproj"
               }
             }
           }
@@ -103,10 +103,6 @@
             "Microsoft.CSharp": {
               "target": "Package",
               "version": "[4.6.0, )"
-            },
-            "Microsoft.CodeAnalysis.CSharp": {
-              "target": "Package",
-              "version": "[3.4.0-beta2-final, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
