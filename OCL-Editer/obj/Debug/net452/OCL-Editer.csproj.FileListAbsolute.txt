@@ -1,7 +1,0 @@
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\bin\Debug\net452\OCL-Editer.dll
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\bin\Debug\net452\OCL-Editer.pdb
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\obj\Debug\net452\OCL-Editer.csprojAssemblyReference.cache
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\obj\Debug\net452\OCL-Editer.AssemblyInfoInputs.cache
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\obj\Debug\net452\OCL-Editer.AssemblyInfo.cs
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\obj\Debug\net452\OCL-Editer.dll
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP\OCL-Editer\obj\Debug\net452\OCL-Editer.pdb
