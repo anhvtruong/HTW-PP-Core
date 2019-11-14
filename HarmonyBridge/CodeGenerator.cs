@@ -10,6 +10,7 @@ using HarmonyLib;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using OCL;
+using System.Collections;
 
 namespace HarmonyBridge
 {

@@ -12,4 +12,3 @@ C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\Designe
 C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\Designer\obj\Debug\netcoreapp3.0\Designer.AssemblyInfo.cs
 C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\Designer\obj\Debug\netcoreapp3.0\Designer.dll
 C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\Designer\obj\Debug\netcoreapp3.0\Designer.pdb
-C:\Users\tvanh\OneDrive\Documents\Studium\Forschung\projects\HTW-PP-Core\Designer\obj\Debug\netcoreapp3.0\Designer.csprojAssemblyReference.cache
