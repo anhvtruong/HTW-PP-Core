@@ -1,4 +1,7 @@
 package Rules 
-	context Operation::SetTask() pre DurationNotNegativ: duration >= 0
 	context Operation::SetTask() pre OverlappingProdTime: startTime >= predecessor.EndTime
+	context Machine::SetEntry() pre CapacityGreaterZero: self.Capacity > 0
+	context Machine::SetEntry() pre CapacityZero: self.Capacity = 0
+	context Operation::SetTask() pre DurationNotNegative: duration >= 0
+	context Operation::SetTask() pre DurationNegative: duration < 0
 endpackage

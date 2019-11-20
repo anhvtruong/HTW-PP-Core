@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using OCL;
 using System.Collections;
+using System.Runtime.Serialization;
 
 namespace HarmonyBridge
 {
@@ -46,6 +47,7 @@ namespace HarmonyBridge
 
         public CodeGenerator(Options options)
         {
+            HarmonyLib.Harmony.DEBUG = true;
             _options = options;
             // // Console.WriteLine(GenerateCodeString());
             // var param = new CompilerParameters
@@ -71,6 +73,8 @@ namespace HarmonyBridge
                 typeof(System.Linq.Enumerable).Assembly.Location,
                 typeof(System.Runtime.CompilerServices.DynamicAttribute).Assembly.Location,
                 typeof(Console).GetTypeInfo().Assembly.Location,
+                typeof(FormatterServices).GetTypeInfo().Assembly.Location,
+                typeof(Stack).GetTypeInfo().Assembly.Location,
                 typeof(Microsoft.CSharp.RuntimeBinder.CSharpArgumentInfo).GetTypeInfo().Assembly.Location,
                 coreDir.FullName + Path.DirectorySeparatorChar + "mscorlib.dll",
                 coreDir.FullName + Path.DirectorySeparatorChar + "netstandard.dll",
@@ -95,7 +99,7 @@ namespace HarmonyBridge
             var code = GenerateCodeString();
             // var results = codeProvider.CompileAssemblyFromSource(param, code);
 
-            System.IO.File.WriteAllText("_generated.cs", code);
+            System.IO.File.WriteAllText(_options.Context.Namespace + "-" + _options.ClassName + "_generated.cs", code);
 
 
             var typeName = "HookClass_" + _options.Context.Namespace + "." +
@@ -220,14 +224,16 @@ using Designer;
 using HarmonyLib;
 using System.Reflection;
 using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 
 namespace HookClass_" + _options.Context.Namespace + @"
 {
-public class " + _options.ClassName + @"
+    public class " + _options.ClassName + @"
     {
-private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTable<object, object>();
+        private static Stack stack = new Stack();
         public " + _options.ClassName + @"() {}
         public Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> Apply(System.Type ctx)
         {
@@ -255,19 +261,18 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             }
 
             Type newObjectType = self.GetType();
-            object newObject = Activator.CreateInstance(newObjectType);
-            foreach (var propInfo in self.GetType().GetProperties())
+	        object newObject = FormatterServices.GetSafeUninitializedObject(newObjectType);
+            foreach (var propInfo in self.GetType().GetFields())
             {
-                object orgValue = propInfo.GetValue(self, null);
-                propInfo.SetValue(newObject, orgValue, null);
+                object orgValue = propInfo.GetValue(self);
+                propInfo.SetValue(newObject, orgValue);
             }
-            oset.Add(self, newObject);
+            stack.Push(newObject);
         }
         public static void AfterCall(" + _options.Context + " __instance" + funcArgsAddStr + @")
         {
             var self = __instance;
-            object pre;
-            oset.TryGetValue(self, out pre);
+            object pre = stack.Pop();
 
             if (!(" + _options.AfterCode + @"))
             {
@@ -281,23 +286,16 @@ private static ConditionalWeakTable<object, object> oset = new ConditionalWeakTa
             Console.WriteLine(""Planning Error " + _options.ClassName + @"."");
             HasPlanningError = true;
         }
-
-        
     }
 
 
-public static class Extensions
-{
-public static List<dynamic>CastToList(this object self)
-{
-    return (List<dynamic>) self; // as List<dynamic>;
-}
-
-//     public static bool CastAll(this object source, Func<object, bool> predicate)
-//     {
-// return (source as List<dynamic>).All(predicate);
-// }
-public static dynamic GetValue(this object instance, string variableName)
+    public static class Extensions
+    {
+        public static List<dynamic>CastToList(this object self)
+        {
+            return (List<dynamic>) self; // as List<dynamic>;
+        }
+        public static dynamic GetValue(this object instance, string variableName)
         {
             PropertyInfo prop = instance.GetType().GetProperty(variableName,
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetProperty);
@@ -305,16 +303,13 @@ public static dynamic GetValue(this object instance, string variableName)
             var workload = methInf.Invoke(instance, null);
             return workload;
         }
-public static List<dynamic>Cast(this object self, Type innerType)
-{
-    var methodInfo = typeof (Enumerable).GetMethod(""Cast"");
-    var genericMethod = methodInfo.MakeGenericMethod(innerType);
-    return genericMethod.Invoke(null, new [] {self}) as List<dynamic>;
-}
-} 
-
-
-
+        public static List<dynamic>Cast(this object self, Type innerType)
+        {
+            var methodInfo = typeof (Enumerable).GetMethod(""Cast"");
+            var genericMethod = methodInfo.MakeGenericMethod(innerType);
+            return genericMethod.Invoke(null, new [] {self}) as List<dynamic>;
+        }
+    } 
 }
             ";
         }

@@ -104,7 +104,7 @@ namespace Designer
     {
         private int Id { get; set; }
         private string Name { get; set; }
-        private int Capacity { get; set; }
+        public int Capacity { get; set; }
         public List<Operation> Workload { get; } = new List<Operation>();
 
         public Machine(int id, string name, int capa)
