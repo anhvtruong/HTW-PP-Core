@@ -1,7 +1,8 @@
 package Rules 
+
+	context Operation::SetTask() pre DurationNotNegativ: duration >= 0
 	context Operation::SetTask() pre OverlappingProdTime: startTime >= predecessor.EndTime
-	context Machine::SetEntry() pre CapacityGreaterZero: self.Capacity > 0
-	context Machine::SetEntry() pre CapacityZero: self.Capacity = 0
-	context Operation::SetTask() pre DurationNotNegative: duration >= 0
-	context Operation::SetTask() pre DurationNegative: duration < 0
+	context Machine::SetEntry(op: Operation) pre StartTimeCollision: self.Workload->forAll(v|v.StartTime < op.StartTime and v.EndTime <= op.StartTime)
+	context Machine::SetEntry(op: Operation) post Workload: self.Workload->forAll(v1, v2|v1.StartTime < v2.StartTime implies v1.EndTime <= v2.StartTime and v1.EndTime < v2.EndTime)
+
 endpackage

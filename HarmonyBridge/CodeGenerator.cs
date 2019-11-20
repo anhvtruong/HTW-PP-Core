@@ -79,7 +79,8 @@ namespace HarmonyBridge
                 coreDir.FullName + Path.DirectorySeparatorChar + "mscorlib.dll",
                 coreDir.FullName + Path.DirectorySeparatorChar + "netstandard.dll",
                 coreDir.FullName + Path.DirectorySeparatorChar + "System.Runtime.dll",
-                coreDir.FullName + Path.DirectorySeparatorChar + "Microsoft.CSharp.dll"
+                coreDir.FullName + Path.DirectorySeparatorChar + "Microsoft.CSharp.dll",
+                coreDir.FullName + Path.DirectorySeparatorChar + "System.Collections.dll"
                 // "Microsoft.CSharp.dll"
             };
             var refs = refsNames.Select(x => MetadataReference.CreateFromFile(x));
