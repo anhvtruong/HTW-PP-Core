@@ -11,7 +11,7 @@ using OCL.Absyn;
 
 namespace OCL
 {
-    public class Test
+    public static class OclParser
     {
         public static ArrayList ScanFile(string file)
         {

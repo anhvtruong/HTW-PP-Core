@@ -489,7 +489,6 @@ namespace QUT.Gppg {
         /// Traditional YACC method.  Discards the next input token.
         /// </summary>
         [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yyclearin" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yyclearin" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         protected void yyclearin() { NextToken = 0; }
@@ -498,7 +497,6 @@ namespace QUT.Gppg {
         /// Tradional YACC method. Clear the "recovering" flag.
         /// </summary>
         [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yyerrok" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yyerrok" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         protected void yyerrok() { recovering = false; }
@@ -678,8 +676,6 @@ namespace QUT.Gppg {
         /// is of the %YYSTYPE type declared in the parser spec.
         /// </summary>
         [SuppressMessage( "Microsoft.Design", "CA1051:DoNotDeclareVisibleInstanceFields" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yylval" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yylval" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         // A field must be declared for this value of parametric type,
@@ -695,7 +691,6 @@ namespace QUT.Gppg {
         /// type declared by %YYLTYPE in the parser specification.
         /// </summary>
         [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yylloc" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yylloc" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         public virtual TSpan yylloc {
@@ -709,7 +704,6 @@ namespace QUT.Gppg {
         /// </summary>
         /// <returns>An int corresponding to the token</returns>
         [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yylex" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yylex" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         public abstract int yylex();
@@ -721,7 +715,6 @@ namespace QUT.Gppg {
         /// <param name="format">Message format string</param>
         /// <param name="args">Optional array of args</param>
         [SuppressMessage( "Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "yyerror" )]
-        [SuppressMessage( "Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "yyerror" )]
         // Reason for FxCop message suppression -
         // This is a traditional name for YACC-like functionality
         public virtual void yyerror( string format, params object[] args ) { }

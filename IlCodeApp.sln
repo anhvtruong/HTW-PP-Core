@@ -3,11 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IlCodeApp", "IlCodeApp\IlCodeApp.csproj", "{8731AE93-B2EF-47FD-BD6F-9999221B6D39}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A} = {A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Designer", "Designer\Designer.csproj", "{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyBridge", "HarmonyBridge\HarmonyBridge.csproj", "{996B9366-F380-4AD9-96A5-5C6651986A8C}"
@@ -15,18 +10,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyBridge", "HarmonyBri
 		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A} = {A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OCL-Editer", "OCL-Editer\OCL-Editer.csproj", "{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8731AE93-B2EF-47FD-BD6F-9999221B6D39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8731AE93-B2EF-47FD-BD6F-9999221B6D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8731AE93-B2EF-47FD-BD6F-9999221B6D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8731AE93-B2EF-47FD-BD6F-9999221B6D39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,10 +24,6 @@ Global
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{996B9366-F380-4AD9-96A5-5C6651986A8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
