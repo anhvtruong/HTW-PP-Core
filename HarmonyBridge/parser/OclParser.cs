@@ -19,21 +19,18 @@ namespace OCL
         {
             var stream = new MemoryStream(
                 Encoding.UTF8.GetBytes("package Rules\n" + ocls + "\nendpackage"));
-            Scanner scanner = Scanner.CreateScanner(stream);
-            Parser parser = new Parser(scanner);
+            var scanner = Scanner.CreateScanner(stream);
+            var parser = new Parser(scanner);
             try
             {
-                OCLfile parse_tree = parser.ParseOCLfile();
-                return AspectPrinter.Print(parse_tree);
+                var parseTree = parser.ParseOCLfile();
+                return AspectPrinter.Print(parseTree);
             }
             catch (Exception e)
             {
-                Console.Out.WriteLine("Parse NOT Successful:");
-                Console.Out.WriteLine(e.Message);
-                Console.Out.WriteLine("");
-                Console.Out.WriteLine("Stack Trace:");
-                Console.Out.WriteLine(e.StackTrace);
-                return null;
+                var err = e.Message + "\n";
+                err += e.StackTrace + "\n";
+                throw new Exception(err);
             }
         }
         //public static void Main(string[] args)

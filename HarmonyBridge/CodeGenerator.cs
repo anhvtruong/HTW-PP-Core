@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using OCL;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace HarmonyBridge
@@ -35,11 +36,11 @@ namespace HarmonyBridge
         private readonly Options _options;
         private readonly dynamic _runtimeCode;
 
-        public CodeGenerator(Aspect aspect, Assembly target) 
+        public CodeGenerator(Aspect aspect, Assembly target)
         {
             // HarmonyLib.Harmony.DEBUG = true;
             _options = new Options(aspect.ConstraintName,
-                ContextNameToType(target, aspect.ContextName),
+                GetTypeByName(target, aspect.ContextName),
                 aspect.FunctionName, aspect.BeforeCode, aspect.AfterCode);
 
             var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
@@ -167,10 +168,22 @@ namespace HarmonyBridge
             return args;
         }
 
-        private static System.Type ContextNameToType(Assembly assembly, string ctxName)
+        private static Type GetTypeByName(Assembly assembly, string className)
         {
-            //return assembly.GetType(ctxName, true);
-            return assembly.GetType(assembly.FullName.Split(',')[0] + "." + ctxName, true);
+            return assembly.GetTypes().First(t => t.Name == className);
+            // var returnVal = new List<Type>();
+            // foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
+            // {
+            //     Type[] assemblyTypes = a.GetTypes();
+            //     for (int j = 0; j < assemblyTypes.Length; j++)
+            //     {
+            //         if (assemblyTypes[j].Name == className)
+            //         {
+            //             returnVal.Add(assemblyTypes[j]);
+            //         }
+            //     }
+            // }
+            // return returnVal.ToArray();
         }
 
         public void InvokeApplyMethod()
