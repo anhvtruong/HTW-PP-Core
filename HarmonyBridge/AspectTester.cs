@@ -2,36 +2,19 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using Designer;
-using HarmonyBridge;
 using OCL;
-using Xunit;
 
-namespace AspectTester
+namespace HarmonyBridge
 {
-    public class Tests
+    public class AspectTester
     {
-        public static void Main(string[] args)
+        public static void AddOclTests(Assembly a, string ocls)
         {
-            var test = new Tests();
-            test.RunAspectTests();
+            new AspectTester(a, ocls);
         }
-
-        [Fact]
-        private void RunAspectTests()
+        private void CompileOCLs(string ocls)
         {
-            CompileOCLs();
-
-            Console.WriteLine("Execute Planning program...");
-            var planner = new Planner();
-            planner.Plan();
-
-            // Assert.DoesNotContain(gens, gen => gen.HasPlanningError);
-        }
-
-        void CompileOCLs()
-        {
-            var aspects = OclParser.ScanFile("../../../Tests.ocl");
+            var aspects = OclParser.ScanString(ocls);
 
             Console.WriteLine();
 
@@ -53,12 +36,14 @@ namespace AspectTester
             Console.WriteLine();
         }
 
-        public Tests()
+        private AspectTester(Assembly assembly, string ocls)
         {
-            _assembly = typeof(Operation).Assembly;
+            _assembly = assembly;
+            
+            CompileOCLs(ocls);
         }
-
-        private static Assembly _assembly;
+        
+        private readonly Assembly _assembly;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         private CodeGenerator GenCode(Aspect aspect)

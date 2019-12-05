@@ -1,11 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.CodeDom.Compiler;
 using System.Linq;
-using Microsoft.CSharp;
 using System.Reflection;
-using System.Runtime.InteropServices;
-using Designer;
 using HarmonyLib;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -39,36 +35,19 @@ namespace HarmonyBridge
         private readonly Options _options;
         private readonly dynamic _runtimeCode;
 
-        public CodeGenerator(Aspect aspect, Assembly target) : this(new Options(aspect.ConstraintName,
-            ContextNameToType(target, aspect.ContextName),
-            aspect.FunctionName, aspect.BeforeCode, aspect.AfterCode))
+        public CodeGenerator(Aspect aspect, Assembly target) 
         {
-        }
-
-        public CodeGenerator(Options options)
-        {
-            HarmonyLib.Harmony.DEBUG = true;
-            _options = options;
-            // // Console.WriteLine(GenerateCodeString());
-            // var param = new CompilerParameters
-            // {
-            //     GenerateExecutable = false,
-            //     IncludeDebugInformation = true,
-            //     GenerateInMemory = false
-            // };
+            // HarmonyLib.Harmony.DEBUG = true;
+            _options = new Options(aspect.ConstraintName,
+                ContextNameToType(target, aspect.ContextName),
+                aspect.FunctionName, aspect.BeforeCode, aspect.AfterCode);
 
             var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
             var coreDir = Directory.GetParent(dd);
             var refsNames = new[]
             {
-                // "System.Xml.dll",
-                // "System.Data.dll",
-                // "System.Core.dll",
-                // "System.Xml.Linq.dll",
-                // "0Harmony.dll",
-                // "0Harmony.dll",
                 typeof(HarmonyLib.Harmony).Assembly.Location,
-                typeof(Designer.Operation).Assembly.Location,
+                target.Location,
                 typeof(object).Assembly.Location,
                 typeof(System.Linq.Enumerable).Assembly.Location,
                 typeof(System.Runtime.CompilerServices.DynamicAttribute).Assembly.Location,
@@ -200,10 +179,11 @@ namespace HarmonyBridge
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.AssemblyResolve += @object.Invoke;
             var method = _runtimeCode.GetMethod("Apply");
-            Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> tup = method.Invoke(_instance, new object[]
-            {
-                _options.Context
-            });
+            Tuple<HarmonyLib.Harmony, MethodInfo, HarmonyMethod, HarmonyMethod> tup = method.Invoke(_instance,
+                new object[]
+                {
+                    _options.Context
+                });
             tup.Item1.Patch(tup.Item2, tup.Item3, tup.Item4);
         }
 
@@ -221,7 +201,7 @@ namespace HarmonyBridge
             var funcArgsAddStr = GetMethodArgumentsList();
             return @"
 using System;
-using Designer;
+using " + _options.Context.Namespace + @";
 using HarmonyLib;
 using System.Reflection;
 using System.Linq;

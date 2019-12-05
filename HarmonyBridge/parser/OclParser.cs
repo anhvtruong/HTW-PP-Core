@@ -4,18 +4,21 @@
 /* pretty-print the result.                                                 */
 /*                                                                          */
 /****************************************************************************/
+
 using System;
 using System.Collections;
 using System.IO;
+using System.Text;
 using OCL.Absyn;
 
 namespace OCL
 {
     public static class OclParser
     {
-        public static ArrayList ScanFile(string file)
+        public static ArrayList ScanString(string ocls)
         {
-            Stream stream = File.OpenRead(file);
+            var stream = new MemoryStream(
+                Encoding.UTF8.GetBytes("package Rules\n" + ocls + "\nendpackage"));
             Scanner scanner = Scanner.CreateScanner(stream);
             Parser parser = new Parser(scanner);
             try
