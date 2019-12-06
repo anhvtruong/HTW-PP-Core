@@ -183,7 +183,7 @@ namespace HarmonyBridge
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
+                    // (reflection-) type load exceptions can be ignored
                 }
             }
 
@@ -219,7 +219,7 @@ namespace HarmonyBridge
             var funcArgsAddStr = GetMethodArgumentsList();
             return @"
 using System;
-using " + _options.Context.Namespace + @";
+using " + ns + @";
 using HarmonyLib;
 using System.Reflection;
 using System.Linq;
