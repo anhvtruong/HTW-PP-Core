@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using HarmonyBridge;
 using OCL;
 
-namespace HarmonyBridge
+namespace OclAspectTest
 {
-    public class AspectTester
+    public class OclTestProvider
     {
-        public static void AddOclTests(Assembly a, string ocls)
+        private IEnumerable<Assembly> _targetAssemblies;
+
+        public static void AddConstraints(IEnumerable<string> targetAssemblies, string ocls)
         {
-            new AspectTester(a, ocls);
+            new OclTestProvider(targetAssemblies.Select(Assembly.Load), ocls);
         }
         private void CompileOCLs(string ocls)
         {
@@ -36,23 +40,20 @@ namespace HarmonyBridge
             Console.WriteLine();
         }
 
-        private AspectTester(Assembly assembly, string ocls)
+        private OclTestProvider(IEnumerable<Assembly> targetAssemblies, string ocls)
         {
-            _assembly = assembly;
-            
+            _targetAssemblies = targetAssemblies;
             CompileOCLs(ocls);
         }
         
-        private readonly Assembly _assembly;
-
         [MethodImpl(MethodImplOptions.NoInlining)]
         private CodeGenerator GenCode(Aspect aspect)
         {
             // Console.WriteLine("Aspect: " + aspect.ToString());
 
             var gen = new CodeGenerator(
-                aspect,
-                _assembly
+                _targetAssemblies,
+                aspect
             );
             // gen.InvokeApplyMethod();
             return gen;

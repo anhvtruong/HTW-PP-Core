@@ -14,7 +14,7 @@ namespace HarmonyBridge
 {
     public class CodeGenerator
     {
-        public struct Options
+        private struct Options
         {
             public readonly System.Type Context;
             public readonly string ClassName;
@@ -36,19 +36,19 @@ namespace HarmonyBridge
         private readonly Options _options;
         private readonly dynamic _runtimeCode;
 
-        public CodeGenerator(Aspect aspect, Assembly target)
+        public CodeGenerator(IEnumerable<Assembly> targetAssemblies, Aspect aspect)
         {
             // HarmonyLib.Harmony.DEBUG = true;
             _options = new Options(aspect.ConstraintName,
-                GetTypeByName(target, aspect.ContextName),
+                GetTypeByName(aspect.ContextName)[0],
                 aspect.FunctionName, aspect.BeforeCode, aspect.AfterCode);
 
             var dd = typeof(Enumerable).GetTypeInfo().Assembly.Location;
             var coreDir = Directory.GetParent(dd);
+            
             var refsNames = new[]
             {
                 typeof(HarmonyLib.Harmony).Assembly.Location,
-                target.Location,
                 typeof(object).Assembly.Location,
                 typeof(System.Linq.Enumerable).Assembly.Location,
                 typeof(System.Runtime.CompilerServices.DynamicAttribute).Assembly.Location,
@@ -63,8 +63,11 @@ namespace HarmonyBridge
                 coreDir.FullName + Path.DirectorySeparatorChar + "System.Collections.dll"
                 // "Microsoft.CSharp.dll"
             };
-            var refs = refsNames.Select(x => MetadataReference.CreateFromFile(x));
 
+            refsNames = targetAssemblies.Aggregate(refsNames, (current, assembly) => current.AddToArray(assembly.Location));
+
+            var refs = refsNames.Select(x => MetadataReference.CreateFromFile(x));
+            
             // param.ReferencedAssemblies.Add("System.dll");
             // param.ReferencedAssemblies.Add("System.Xml.dll");
             // param.ReferencedAssemblies.Add("System.Data.dll");
@@ -83,7 +86,7 @@ namespace HarmonyBridge
             System.IO.File.WriteAllText(_options.Context.Namespace + "-" + _options.ClassName + "_generated.cs", code);
 
 
-            var typeName = "HookClass_" + _options.Context.Namespace + "." +
+            var typeName = "HookClass_" + _options.Context.Assembly.GetName().Name + "." +
                            _options.ClassName;
 
             SyntaxTree tree = SyntaxFactory.ParseSyntaxTree(code);
@@ -168,22 +171,23 @@ namespace HarmonyBridge
             return args;
         }
 
-        private static Type GetTypeByName(Assembly assembly, string className)
+        private static Type[] GetTypeByName(string className)
         {
-            return assembly.GetTypes().First(t => t.Name == className);
-            // var returnVal = new List<Type>();
-            // foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-            // {
-            //     Type[] assemblyTypes = a.GetTypes();
-            //     for (int j = 0; j < assemblyTypes.Length; j++)
-            //     {
-            //         if (assemblyTypes[j].Name == className)
-            //         {
-            //             returnVal.Add(assemblyTypes[j]);
-            //         }
-            //     }
-            // }
-            // return returnVal.ToArray();
+            var returnVal = new List<Type>();
+            foreach (var a in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                try
+                {
+                    var assemblyTypes = a.GetTypes();
+                    returnVal.AddRange(assemblyTypes.Where(t => t.Name == className));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+
+            return returnVal.ToArray();
         }
 
         public void InvokeApplyMethod()
@@ -211,6 +215,7 @@ namespace HarmonyBridge
 
         private string GenerateCodeString()
         {
+            var ns = _options.Context.Assembly.GetName().Name;
             var funcArgsAddStr = GetMethodArgumentsList();
             return @"
 using System;
@@ -223,7 +228,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
-namespace HookClass_" + _options.Context.Namespace + @"
+namespace HookClass_" + ns + @"
 {
     public class " + _options.ClassName + @"
     {

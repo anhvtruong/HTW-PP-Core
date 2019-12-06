@@ -1919,7 +1919,7 @@ namespace OCL
             if (p is OCL.Absyn.LAnd)
             {
                 OCL.Absyn.LAnd _land = (OCL.Absyn.LAnd)p;
-                Aspect.Code.Add(" & ");
+                Aspect.Code.Add(" && ");
 
                 if (_i_ > 0) Render(LEFT_PARENTHESIS);
                 Render("and");
@@ -1928,7 +1928,7 @@ namespace OCL
             else if (p is OCL.Absyn.LOr)
             {
                 OCL.Absyn.LOr _lor = (OCL.Absyn.LOr)p;
-                Aspect.Code.Add(" | ");
+                Aspect.Code.Add(" || ");
 
                 if (_i_ > 0) Render(LEFT_PARENTHESIS);
                 Render("or");
