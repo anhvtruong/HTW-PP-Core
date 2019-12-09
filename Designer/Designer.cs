@@ -19,7 +19,7 @@ namespace Designer
             const string ocls = @"
 
 context Machine::set_Capacity()
-         pre CapacityEqual42: self.Capacity = 42
+         pre CapacityBigger10: self.Capacity <> null and self.Capacity > 10
 
 ";
             OclTestProvider.AddConstraints(new[] {"Designer"}, ocls);
