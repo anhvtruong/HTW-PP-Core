@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace HarmonyBridge
+namespace OclAspectTest
 {
     public class CodeGenerator
     {

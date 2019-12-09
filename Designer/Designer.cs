@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using HarmonyBridge;
+using OclAspectTest;
 
 namespace Designer
 {
@@ -22,7 +22,7 @@ context Machine::set_Capacity()
          pre CapacityEqual42: self.Capacity = 42
 
 ";
-            AspectTester.AddOclTests(typeof(Operation).Assembly, ocls);
+            OclTestProvider.AddConstraints(new[] {"Designer"}, ocls);
 
             Console.WriteLine("Execute Planning program...");
             var planner = new Planner();

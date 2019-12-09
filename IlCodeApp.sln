@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Designer", "Designer\Designer.csproj", "{309DC0C1-53AB-4DD3-8C5B-B6BD2E129E22}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HarmonyBridge", "HarmonyBridge\HarmonyBridge.csproj", "{996B9366-F380-4AD9-96A5-5C6651986A8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OclAspectTest", "OclAspectTest\OclAspectTest.csproj", "{996B9366-F380-4AD9-96A5-5C6651986A8C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A} = {A727DF06-3F92-4DC0-9065-F1A9E7AC1D8A}
 	EndProjectSection

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HarmonyBridge\HarmonyBridge.csproj" />
+    <ProjectReference Include="..\OclAspectTest\OclAspectTest.csproj" />
   </ItemGroup>
 
 </Project>
