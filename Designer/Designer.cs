@@ -19,7 +19,7 @@ namespace Designer
             const string ocls = @"
 
 context Machine::set_Capacity()
-         pre CapacityBigger10: self.Capacity <> null and self.Capacity > 10
+         pre CapacityBigger10: self.Capacity.Max(10) > 10
 
 ";
             OclTestProvider.AddConstraints(new[] {"Designer"}, ocls);
@@ -38,11 +38,9 @@ context Machine::set_Capacity()
         {
             var ma1 = new Machine(1, "Bohrer", 15);
             var ma2 = new Machine(2, "Fräser", 10);
-
             var mt1 = new Material(1, "Holzbrett", 15);
             var mt2 = new Material(2, "Kleber", 50);
             var mt3 = new Material(3, "Schrauben", 50);
-
 
             Operations.Add(new Operation(0, 0));
             mats = new List<Tuple<Material, int>>

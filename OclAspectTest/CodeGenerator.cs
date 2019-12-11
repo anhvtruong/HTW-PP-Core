@@ -60,7 +60,8 @@ namespace OclAspectTest
                 coreDir.FullName + Path.DirectorySeparatorChar + "netstandard.dll",
                 coreDir.FullName + Path.DirectorySeparatorChar + "System.Runtime.dll",
                 coreDir.FullName + Path.DirectorySeparatorChar + "Microsoft.CSharp.dll",
-                coreDir.FullName + Path.DirectorySeparatorChar + "System.Collections.dll"
+                coreDir.FullName + Path.DirectorySeparatorChar + "System.Collections.dll",
+                "OclAspectTest.dll"
                 // "Microsoft.CSharp.dll"
             };
 
@@ -220,6 +221,7 @@ namespace OclAspectTest
             return @"
 using System;
 using " + ns + @";
+using OclAspectTest;
 using HarmonyLib;
 using System.Reflection;
 using System.Linq;
@@ -253,7 +255,7 @@ namespace HookClass_" + ns + @"
         public static void BeforeCall(" + _options.Context + " __instance" + funcArgsAddStr + @")
         {
             var self = __instance;
-
+            var foo = Traverse.Create(self);
             if (!(" + _options.BeforeCode + @"))
             {
                 SetPlanningError();
